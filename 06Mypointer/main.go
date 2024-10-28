@@ -11,6 +11,8 @@ func main() {
 
 	count := 23
 
+	
+
 	var ptr2 = &count
 	fmt.Println("Value of pointer is",ptr2)
 	fmt.Println("Value of pointer is",*ptr2)
