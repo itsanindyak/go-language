@@ -1,17 +1,41 @@
 package main
 
-import "fmt"
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strings"
+)
 
 func main() {
-	fmt.Println("Hello Golang")
-	greeter()
-    fmt.Println(add(12,24))
+	reader:=bufio.NewReader(os.Stdin)
+	fmt.Println("Enter your name :")
+	input,_ :=reader.ReadString('\n')
+	input = strings.TrimSpace(input)
+	greeter(input)
+	add,isAdd:= proAdd(1,2,3,4,5)
+
+	if(isAdd){
+		fmt.Println(add)
+	}else{
+		fmt.Println("Problem to get answer from the function")
+	}
 }
 
-func greeter() {
-	fmt.Println("Namaste Golang")
+func greeter(name string) {
+	fmt.Println("Namaste", name, ", Lets learn function in goloang")
 }
 
 func add(a int, b int) int {
 	return a + b
+}
+
+func proAdd(values ...int) (int,bool) {
+	// values is now a slices
+	total := 0
+	for i := range values {
+		total = add(total, values[i])
+	}
+
+	return total,false
 }
