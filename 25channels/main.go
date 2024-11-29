@@ -10,15 +10,6 @@ func main() {
 	wg := &sync.WaitGroup{}
 
 	wg.Add(2)
-	// go routine for only write the value
-	go func(c chan<- int, wg *sync.WaitGroup) {
-		defer wg.Done()
-		c <- 5
-		c <- 6
-
-		close(c) // close the channel after putting all value
-
-	}(myChannels, wg)
 	// go routine for only read the value
 	go func(c chan int, wg *sync.WaitGroup) {
 		defer wg.Done()
@@ -26,6 +17,15 @@ func main() {
 		for value := range c {
 			fmt.Println(value)
 		}
+
+	}(myChannels, wg)
+	// go routine for only write the value
+	go func(c chan<- int, wg *sync.WaitGroup) {
+		defer wg.Done()
+		c <- 5
+		c <- 6
+
+		close(c) // close the channel after putting all value
 
 	}(myChannels, wg)
 
